@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:FontFaceGenerator.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             x:Class="FontFaceGenerator.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+	<Grid RowDefinitions="2, *, 2, *, 2, *, 2, Auto, 2, 4*, 2, *, 2" ColumnDefinitions="2, *, 2">
+		<Label Content="FontFace Generator" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="56" FontWeight="Bold"/>
+		<Grid Grid.Row="3" Grid.Column="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Label Content="Папка шрифтов:" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="46"/>
+			<Label Name="FontsFolderLabel" Content="{CompiledBinding FontsFolderPath}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="46"/>
+			<Button Name="OpenFolderDialogButton" Grid.Column="2" Content="Выбрать..." FontSize="46" Cursor="Hand" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding OpenFontsFolderDialogCommand}"></Button>
+		</Grid>
+		<Grid Grid.Row="5" Grid.Column="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="3*"/>
+			</Grid.ColumnDefinitions>
+			<Label Content="Конечная папка:" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="46"/>
+			<TextBox Grid.Column="2" FontSize="46" Text="{CompiledBinding OutputFolder}" VerticalAlignment="Center"/>
+		</Grid>
+		<ProgressBar Name="Progress" Grid.Row="7" Grid.Column="1" Height="100"></ProgressBar>
+		<ScrollViewer Grid.Row="9" Grid.Column="1">
+			<TextBox IsReadOnly="True" TextWrapping="Wrap" Name="OutputText" Text="{CompiledBinding OutputText}" FontSize="24"/>
+		</ScrollViewer>
+		<Button Name="GenerateButton" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="Сгенерировать" Grid.Column="1" Grid.Row="11" VerticalContentAlignment="Center"  FontWeight="Bold" FontSize="46" Cursor="Hand" Command="{Binding ReadFontsInfoCommand}"></Button>
+	</Grid>
+</UserControl>
